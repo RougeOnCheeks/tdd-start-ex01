@@ -6,18 +6,12 @@ public class PasswordStrengthMeter {
         if(s.length() < 8){
             return PasswordStrength.NORMAL;
         }
-//        boolean containsNum = false;
-//        //각 문자를 비교해서 0~9 사이의 값을 갖는 문자가 있으면 true로 바꾸고 break, 없으면 NORMAL 리턴
-//        for(char ch: s.toCharArray()){
-//            if (ch >= '0' && ch <= '9') {
-//                containsNum = true;
-//                break;
-//            }
-//        }
 
         boolean containsNum = meetsContainingNumberCritera(s);
-
         if(!containsNum) return PasswordStrength.NORMAL;
+
+        boolean containsUpp = meetsContainingUppercaseCritera(s);
+        if(!containsUpp) return PasswordStrength.NORMAL;
 
         return PasswordStrength.STRONG;
     }
@@ -25,6 +19,15 @@ public class PasswordStrengthMeter {
     private boolean meetsContainingNumberCritera(String s){
         for(char ch: s.toCharArray()){
             if (ch >= '0' && ch <= '9') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean meetsContainingUppercaseCritera(String s){
+        for(char ch: s.toCharArray()){
+            if(Character.isUpperCase(ch)){
                 return true;
             }
         }
