@@ -42,4 +42,9 @@ public class PasswordStrengthMeterTest {
     void emptyInput_Then_Invalid(){
         assertStrength("", PasswordStrength.INVALID);
     }
+
+    @Test
+    void meetsOnlyLengthCriteria_Then_Weak(){
+        assertStrength("abdefghi", PasswordStrength.WEAK);
+    }
 }
