@@ -8,7 +8,7 @@ public class PasswordStrengthMeter {
         if(meetsContainingNumberCritera(s)) metCounts++;
         if(meetsContainingUppercaseCritera(s)) metCounts++;
 
-        if(metCounts == 1) return PasswordStrength.WEAK;//조건 1개 충족 시 강도 약함
+        if(metCounts <= 1) return PasswordStrength.WEAK;//조건 1개 충족 시 강도 약함
         if(metCounts == 2) return PasswordStrength.NORMAL;//조건 2개 충족 시 강도 보통
         return PasswordStrength.STRONG;
     }
