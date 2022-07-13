@@ -1,3 +1,7 @@
+package ch02;
+
+import ch02.PasswordStrength;
+
 public class PasswordStrengthMeter {
     public PasswordStrength meter(String s){
 

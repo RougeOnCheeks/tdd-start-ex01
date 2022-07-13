@@ -1,3 +1,7 @@
+package ch02;
+
+import ch02.PasswordStrength;
+import ch02.PasswordStrengthMeter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
