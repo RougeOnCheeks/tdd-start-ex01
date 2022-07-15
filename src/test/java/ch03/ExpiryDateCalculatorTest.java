@@ -10,13 +10,39 @@ public class ExpiryDateCalculatorTest {
 
     @Test
     void 만원_납부하면_한달_뒤가_만료일이_됨(){
-        assertExpiryDate(LocalDate.of(2022,7,1), 10_000, LocalDate.of(2022,8,1));
-        assertExpiryDate(LocalDate.of(2022,7,5), 10_000, LocalDate.of(2022,8,5));
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,7,1))
+                        .payAmount(10_000)
+                        .build(),
+                LocalDate.of(2022,8,1));
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,7,5))
+                        .payAmount(10_000)
+                        .build(),
+                LocalDate.of(2022,8,5));
     }
 
-    private void assertExpiryDate(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate){
+    @Test
+    void 납부일과_한달_뒤_일자가_같지_않음(){
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,1,31))
+                        .payAmount(10_000)
+                        .build(),
+                LocalDate.of(2022,2,28));
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2022,5,31))
+                        .payAmount(10_000)
+                        .build(),
+                LocalDate.of(2022,6,30));
+    }
+
+    private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate){
         ExpiryDateCalculator cal = new ExpiryDateCalculator();
-        LocalDate realExpiryDate = cal.calculateExpiryDate(billingDate, payAmount);
+        LocalDate realExpiryDate = cal.calculateExpiryDate(payData);
         assertEquals(expectedExpiryDate, realExpiryDate);
     }
 }
