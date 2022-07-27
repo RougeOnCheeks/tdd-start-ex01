@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserRegisterTest {
     private UserRegister userRegister;
@@ -44,14 +45,5 @@ public class UserRegisterTest {
         User savedUser = fakeRepository.findById("id");// 가입 결과 확인
         assertEquals("id", savedUser.getId());
         assertEquals("email", savedUser.getEmail());
-    }
-
-    @DisplayName("가입하면 메일 전송")
-    @Test
-    void whenRegisterThenSendMail(){
-        userRegister.register("id", "pw", "email@email.com");
-
-        assertTrue(spyEmailNotifier.isCalled());
-        assertEquals("email@email.com", spyEmailNotifier.getEmail());
     }
 }
